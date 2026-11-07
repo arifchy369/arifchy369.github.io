@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arifchy369.github.io/sitemap.xml
