@@ -904,5 +904,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     })();
   </script>
   <script src="/terminal.js" defer></script>
+  <script>
+    // Track every terminal command the visitor runs (Enter key) as a GA4 event.
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key !== 'Enter' || ev.isComposing) return;
+      var input = ev.target;
+      if (!input || input.id !== 'term-input') return;
+      var cmd = (input.value || '').trim();
+      if (!cmd || typeof gtag !== 'function') return;
+      gtag('event', 'terminal_command', {
+        command: cmd.slice(0, 100),
+        command_name: cmd.split(/\s+/)[0].slice(0, 50)
+      });
+    }, true);
+  </script>
 </body>
 </html>
